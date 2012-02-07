@@ -1,0 +1,54 @@
+
+        
+        .menu {
+            position: relative;
+            height: 60px;
+            width: 980px;
+            background-color: #f5f5f5;
+            padding: 0px;
+            margin: 10px 0px;
+            overflow: hidden;
+            border-top: 6px solid #4e5d00;
+        }
+                .menu li {
+                    float: left;
+                    list-style: none;
+                    border-right: 1px solid #e6e6e6;
+                    height: 60px;
+                    
+                }
+                    .menu li.back {
+                        background: url("lava.png") no-repeat ;
+                        width: 9px; height: 60px;
+                        z-index: 8;
+                        position: absolute;
+                        border: none;
+                    }
+                        .menu li.back .left {
+                            background: url("lava.png") no-repeat top center;
+                            height: 60px;
+                        }
+                    .menu li a {
+                        font: bold 10px "Trajan Pro";
+                        text-decoration: none;
+                        color: #000;
+                        outline: none;
+                        text-align: center;
+                        top: 25px;
+                        letter-spacing: 0;
+                        z-index: 10;
+                        display: block;
+                        float: left;
+                        height: 30px;
+                        position: relative;
+                        overflow: hidden;
+                        margin: auto 10px; 
+                        padding-left: 25px;
+                        padding-right: 25px;
+                        text-transform:lowercase;
+                    }
+                        .menu li a:hover, .lavaLampWithImage li a:active, .lavaLampWithImage li a:visited {
+                            border: none;
+                        }
+
+                         
