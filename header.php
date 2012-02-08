@@ -52,19 +52,20 @@
 <script src="<?php echo get_template_directory_uri(); ?>/js/html5.js" type="text/javascript"></script>
 <![endif]-->
 
-    <script type="text/javascript" src="<?php echo bloginfo(template_url); ?>/js/jquery-1.2.3.min.js"></script>
-    <script type="text/javascript" src="<?php echo bloginfo(template_url); ?>/js/jquery.easing.min.js"></script>
-    <script type="text/javascript" src="<?php echo bloginfo(template_url); ?>/js/jquery.lavalamp.min.js"></script>
-    <script type="text/javascript">
-        $(function() {
-            $("#topmenu").lavaLamp({
-                fx: "backout",
-                speed: 350,
-                click: function(event, menuItem) {
-                    return false;
-                }
-            });
+<!-- Henter inn script som brukes i menyen -->
+<script type="text/javascript" src="<?php echo bloginfo(template_url); ?>/js/jquery-1.2.3.min.js"></script>
+<script type="text/javascript" src="<?php echo bloginfo(template_url); ?>/js/jquery.easing.min.js"></script>
+<script type="text/javascript" src="<?php echo bloginfo(template_url); ?>/js/jquery.lavalamp.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $("#topmenu").lavaLamp({
+            fx: "backout",
+            speed: 350,
+            click: function(event, menuItem) {
+                 return false;
+            }
         });
+    });
     </script>
     <link rel="stylesheet" href="<?php echo bloginfo(template_url); ?>/css/lavalamp_test.css" media="screen">
 
@@ -75,28 +76,44 @@
 <body <?php body_class(); ?>>
 <div id="page" class="hfeed">
 <?php do_action( 'before' ); ?>
-	<header id="branding" role="banner">
+	<header>
 		<hgroup>
 			<h1 id="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 			<h2 id="site-description"><?php bloginfo( 'description' ); ?></h2>
 		</hgroup>
 
-		<nav id="access" role="navigation">
+		<nav>
+			<!-- MENY -->
 			<ul class="menu" id="topmenu">
 			<?php 
   			$pages = get_pages();
  			foreach ( $pages as $menu_title ) {
-				$menu = $menu_title->post_title;
+				$menu = $menu_title->post_parent;
 				$link = get_permalink($menu_title->ID);
-				if ( $menu == get_the_title() ) {
+				if ($menu == 0 ) {
+				$menu = $menu_title->post_title;
+				$parent = get_the_title($post->post_parent);
+				if ( $menu == get_the_title() || $menu == $parent) {
 				echo "<li class=\"current\"><a href=\"$link\" onClick=\"parent.location='$link'\">".$menu."</a></li>\n";
 				}
 				else { echo "<li><a href=\"$link\" onClick=\"parent.location='$link'\">".$menu."</a></li>\n"; }
+				}
   			}
  			?>
  			</ul>
-		</nav><!-- #access -->
+		</nav>
 
-	</header><!-- #branding -->
+	</header>
 
 	<div id="main">
+		<!-- Undermeny -->
+		<?php
+  		if($post->post_parent)
+  		$children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0");
+  		else
+  		$children = wp_list_pages("title_li=&child_of=".$post->ID."&echo=0");
+  		if ($children) { ?>
+ 	 	<ul>
+  			<?php echo $children; ?>
+  		</ul>
+  		<?php } ?>
