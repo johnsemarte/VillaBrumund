@@ -74,13 +74,15 @@
 </head>
 
 <body <?php body_class(); ?>>
-<div id="page" class="hfeed">
+<div id="container">
 <?php do_action( 'before' ); ?>
 	<header>
+		<div id="logo">
 		<hgroup>
 			<h1 id="site-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 			<h2 id="site-description"><?php bloginfo( 'description' ); ?></h2>
 		</hgroup>
+		</div>
 
 		<nav>
 			<!-- MENY -->
@@ -100,20 +102,16 @@
 				}
   			}
  			?>
+ 				<!-- SØKE SKJEMA -->
+ 				<span class="sok">
+    					<?php get_search_form(); ?>
+   				 </span>
+
  			</ul>
 		</nav>
 
 	</header>
 
 	<div id="main">
-		<!-- Undermeny -->
-		<?php
-  		if($post->post_parent)
-  		$children = wp_list_pages("title_li=&child_of=".$post->post_parent."&echo=0");
-  		else
-  		$children = wp_list_pages("title_li=&child_of=".$post->ID."&echo=0");
-  		if ($children) { ?>
- 	 	<ul>
-  			<?php echo $children; ?>
-  		</ul>
-  		<?php } ?>
+		
+		
