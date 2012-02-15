@@ -88,7 +88,7 @@
 			<!-- MENY -->
 			<ul class="menu" id="topmenu">
 			<?php 
-  			$pages = get_pages();
+  			$pages = get_pages( array( 'sort_order' => 'desc', 'sort_column' => 'menu_order, post_title' ) );
  			foreach ( $pages as $menu_title ) {
 				$menu = $menu_title->post_parent;
 				$link = get_permalink($menu_title->ID);
@@ -108,7 +108,9 @@
    				 </span>
 
  			</ul>
+		
 		</nav>
+		
 
 	</header>
 
